@@ -30,9 +30,13 @@ export async function login(req, res) {
     const user = await db.collection("users").findOne({ email });
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = uuid();
-      await db.collection("sessions").insertOne({ id: email, token: token });
-      res.status(200).send(token);
-      console.log(token);
+      const answer = {
+        id: email,
+        token: token,
+        name: user.name,
+      };
+      await db.collection("sessions").insertOne(answer);
+      res.status(200).send(answer);
       return;
     } else {
       res.sendStatus(404);

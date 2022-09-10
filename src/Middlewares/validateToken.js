@@ -12,7 +12,7 @@ export async function validateToken(req, res, next) {
     return res.sendStatus(401);
   }
 
-  req.locals.session = session;
+  res.locals.session = session;
 
   next();
 }
