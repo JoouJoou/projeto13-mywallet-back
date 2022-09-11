@@ -34,6 +34,7 @@ export async function login(req, res) {
         id: email,
         token: token,
         name: user.name,
+        balance: user.balance,
       };
       await db.collection("sessions").insertOne(answer);
       res.status(200).send(answer);
